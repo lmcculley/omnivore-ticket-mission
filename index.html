@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="./">
+    <meta charset="UTF-8">
+    <title>Hello Omnivore!</title>
+    <link rel="stylesheet" href="src/styles.css">
+  </head>
+  <body>
+    <ticket-overview>Loading tickets content here ...</ticket-overview>
+  </body>
+
+  <script>
+    require('./renderer.js')
+  </script>
+  <script src="node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+    <script src="src/systemjs.config.js"></script>
+    <script>
+      System.import('src/main.js').catch(function(err){ console.error(err); });
+    </script>
+</html>
