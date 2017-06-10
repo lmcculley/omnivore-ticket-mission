@@ -13,15 +13,29 @@ var ticket_service_1 = require("./ticket.service");
 var TicketOverviewComponent = (function () {
     function TicketOverviewComponent(ticketService) {
         this.ticketService = ticketService;
-        this.name = 'Omnivore';
-        this.location = 'Open Tickets';
+        this.isLoading = false;
     }
     TicketOverviewComponent.prototype.getTickets = function () {
         var _this = this;
-        this.ticketService.getTickets().then(function (tickets) { return _this.tickets = tickets.filter(function (t) { return t.open; }); });
+        this.isLoading = true;
+        this.ticketService
+            .getTickets()
+            .then(function (tickets) {
+            _this.isLoading = false;
+            return _this.tickets = tickets;
+        });
+    };
+    TicketOverviewComponent.prototype.refreshTicketList = function () {
+        this.clearSelectedTicket();
+        this.tickets = [];
+        this.getTickets();
+    };
+    TicketOverviewComponent.prototype.clearSelectedTicket = function () {
+        this.selectedTicket = null;
     };
     TicketOverviewComponent.prototype.ngOnInit = function () {
         this.getTickets();
+        //this.timer = setInterval(() => {this.getTickets()}, 45000);
     };
     TicketOverviewComponent.prototype.onSelect = function (ticket) {
         this.selectedTicket = ticket;
@@ -31,7 +45,8 @@ var TicketOverviewComponent = (function () {
 TicketOverviewComponent = __decorate([
     core_1.Component({
         selector: 'ticket-overview',
-        templateUrl: './src/templates/tickets-overview.html',
+        templateUrl: './src/views/tickets-overview.html',
+        styleUrls: ['./src/styles/tickets-overview.css'],
         providers: [ticket_service_1.TicketService]
     }),
     __metadata("design:paramtypes", [ticket_service_1.TicketService])

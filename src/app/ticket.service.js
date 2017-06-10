@@ -14,7 +14,7 @@ require("rxjs/add/operator/toPromise");
 var TicketService = (function () {
     function TicketService(http) {
         this.http = http;
-        this.ticketsUrl = 'https://api.omnivore.io/1.0/locations/ibx4eb7T/tickets';
+        this.ticketsUrl = 'https://api.omnivore.io/1.0/locations/ibx4eb7T/tickets?where=eq(open,true)';
         this.headers = new http_1.Headers({ 'Api-Key': 'e55d08bc7ba34a2bb15f51f14698615e' });
     }
     TicketService.prototype.getTickets = function () {

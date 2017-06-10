@@ -13,6 +13,13 @@ var ticket_1 = require("./ticket");
 var TicketDetailComponent = (function () {
     function TicketDetailComponent() {
     }
+    TicketDetailComponent.prototype.hasTotals = function (totals) {
+        var hasTotal = false;
+        for (var key in totals)
+            if (totals.hasOwnProperty(key) && totals[key] > 0)
+                hasTotal = true;
+        return hasTotal;
+    };
     return TicketDetailComponent;
 }());
 __decorate([
@@ -22,7 +29,8 @@ __decorate([
 TicketDetailComponent = __decorate([
     core_1.Component({
         selector: 'ticket-detail',
-        templateUrl: './src/templates/ticket-detail.html'
+        templateUrl: './src/views/ticket-detail.html',
+        styleUrls: ['./src/styles/ticket-detail.css']
     })
 ], TicketDetailComponent);
 exports.TicketDetailComponent = TicketDetailComponent;

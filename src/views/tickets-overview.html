@@ -1,0 +1,27 @@
+<h1>
+    Hello Omnivore
+    <button 
+        class="btn btn-default pull-right"
+        (click)="clearSelectedTicket()"
+        *ngIf="selectedTicket">Back</button>  
+</h1>
+<section *ngIf="!selectedTicket">
+    <hr />
+    <h2>
+        Open Tickets
+        <button class="btn btn-default" (click)="refreshTicketList()">
+            <i [class.loading-icon]="isLoading" class="glyphicon glyphicon-refresh"></i>
+        </button>
+    </h2>
+
+    <ul class="tickets list-inline">
+        <li *ngFor="let ticket of tickets">
+            <button 
+                class="btn btn-default" 
+                (click)="onSelect(ticket)"> Ticket #{{ticket.id}}</button>
+        </li>
+    </ul>
+    <p *ngIf="!tickets && !isLoading">All tickets closed!</p>
+</section>
+
+<ticket-detail [ticket]="selectedTicket"></ticket-detail>

@@ -7,10 +7,10 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TicketService {
-    private ticketsUrl = 'https://api.omnivore.io/1.0/locations/ibx4eb7T/tickets';
+    private ticketsUrl = 'https://api.omnivore.io/1.0/locations/ibx4eb7T/tickets?where=eq(open,true)';
     private headers = new Headers({'Api-Key': 'e55d08bc7ba34a2bb15f51f14698615e'});
 
-    constructor(private http: Http) {}
+    constructor(private http: Http) { }
 
     getTickets(): Promise<Ticket[]> {
         return this.http

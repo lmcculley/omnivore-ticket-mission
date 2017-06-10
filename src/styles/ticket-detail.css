@@ -1,0 +1,11 @@
+.table>tbody>tr>td:first-child {
+    width: 50%;
+}
+
+.table>tbody>tr>td:last-child {
+    text-align: right;
+}
+
+.table>caption+thead>tr:first-child>th:last-child {
+    text-align: right;
+}

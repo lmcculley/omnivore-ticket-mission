@@ -1,8 +1,0 @@
-<h1>Hello {{name}}</h1>
-<h2>{{location}}</h2>
-<ul class="tickets">
-    <li *ngFor="let ticket of tickets" (click)="onSelect(ticket)">
-        Ticket ID: {{ticket.id}}
-    </li>
-</ul>
-<ticket-detail [ticket]="selectedTicket"></ticket-detail>
