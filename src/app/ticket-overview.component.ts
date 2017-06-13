@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Ticket } from './ticket';
+import { Links } from './links';
 import { TicketService } from './ticket.service';
 
 @Component({
@@ -10,26 +12,29 @@ import { TicketService } from './ticket.service';
 })
 
 export class TicketOverviewComponent implements OnInit { 
-  private timer: any;
   isLoading = false;
   tickets: Ticket[];
+  links: Links;
   selectedTicket: Ticket;
 
   constructor(private ticketService: TicketService) {}
 
-  getTickets(): void {
+  getTickets(url?: string): void {
     this.isLoading = true;
+    this.tickets = null;
     this.ticketService
-        .getTickets()
+        .getTickets(url)
         .then(tickets => {
           this.isLoading = false;
-          return this.tickets = tickets;
+          this.links = tickets._links;
+          return this.tickets = tickets._embedded.tickets;
         });
   }
   
   refreshTicketList(): void {
     this.clearSelectedTicket();
-    this.tickets = [];
+    this.tickets = null;
+    this.links = null;
     this.getTickets();
   }
 
@@ -39,7 +44,6 @@ export class TicketOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTickets();
-    //this.timer = setInterval(() => {this.getTickets()}, 45000);
   }
 
   onSelect(ticket: Ticket): void {

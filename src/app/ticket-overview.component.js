@@ -15,19 +15,22 @@ var TicketOverviewComponent = (function () {
         this.ticketService = ticketService;
         this.isLoading = false;
     }
-    TicketOverviewComponent.prototype.getTickets = function () {
+    TicketOverviewComponent.prototype.getTickets = function (url) {
         var _this = this;
         this.isLoading = true;
+        this.tickets = null;
         this.ticketService
-            .getTickets()
+            .getTickets(url)
             .then(function (tickets) {
             _this.isLoading = false;
-            return _this.tickets = tickets;
+            _this.links = tickets._links;
+            return _this.tickets = tickets._embedded.tickets;
         });
     };
     TicketOverviewComponent.prototype.refreshTicketList = function () {
         this.clearSelectedTicket();
-        this.tickets = [];
+        this.tickets = null;
+        this.links = null;
         this.getTickets();
     };
     TicketOverviewComponent.prototype.clearSelectedTicket = function () {
@@ -35,7 +38,6 @@ var TicketOverviewComponent = (function () {
     };
     TicketOverviewComponent.prototype.ngOnInit = function () {
         this.getTickets();
-        //this.timer = setInterval(() => {this.getTickets()}, 45000);
     };
     TicketOverviewComponent.prototype.onSelect = function (ticket) {
         this.selectedTicket = ticket;

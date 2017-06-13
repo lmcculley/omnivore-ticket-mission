@@ -1,3 +1,7 @@
+.pager a {
+  cursor: pointer;
+}
+
 .list-inline>li {
     padding-bottom: 5px;
 }

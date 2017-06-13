@@ -14,6 +14,17 @@
         </button>
     </h2>
 
+    <nav *ngIf="links && (links.prev || links.next)">        
+        <ul class="pager">
+            <li [class.disabled]="!links.prev" class="previous">
+                <a (click)="links.prev && getTickets(links.prev.href)"><span aria-hidden="true">&larr;</span>Previous</a>
+            </li>
+            <li [class.disabled]="!links.next" class="next">
+                <a (click)="links.next && getTickets(links.next.href)">Next<span aria-hidden="true">&rarr;</span></a>
+            </li>
+        </ul>
+    </nav>
+
     <ul class="tickets list-inline">
         <li *ngFor="let ticket of tickets">
             <button 

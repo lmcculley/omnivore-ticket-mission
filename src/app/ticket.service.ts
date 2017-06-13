@@ -12,13 +12,12 @@ export class TicketService {
 
     constructor(private http: Http) { }
 
-    getTickets(): Promise<Ticket[]> {
+    getTickets(url?: string): Promise<any> {
+        if(!url) url = this.ticketsUrl;
         return this.http
-                   .get(this.ticketsUrl, { headers: this.headers })
+                   .get(url, { headers: this.headers })
                    .toPromise()
-                   .then(function (response) { 
-                       return response.json()._embedded.tickets as Ticket[]
-                    })
+                   .then((response) => response.json())
                    .catch(this.handleError);
     }
 

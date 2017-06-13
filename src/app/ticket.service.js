@@ -17,13 +17,13 @@ var TicketService = (function () {
         this.ticketsUrl = 'https://api.omnivore.io/1.0/locations/ibx4eb7T/tickets?where=eq(open,true)';
         this.headers = new http_1.Headers({ 'Api-Key': 'e55d08bc7ba34a2bb15f51f14698615e' });
     }
-    TicketService.prototype.getTickets = function () {
+    TicketService.prototype.getTickets = function (url) {
+        if (!url)
+            url = this.ticketsUrl;
         return this.http
-            .get(this.ticketsUrl, { headers: this.headers })
+            .get(url, { headers: this.headers })
             .toPromise()
-            .then(function (response) {
-            return response.json()._embedded.tickets;
-        })
+            .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     TicketService.prototype.handleError = function (error) {
