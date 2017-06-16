@@ -1,3 +1,5 @@
+import { Link } from './link';
+
 export class Ticket {
   "void": boolean;
   totals: {
@@ -21,8 +23,6 @@ export class Ticket {
   closed_at: number;
   auto_send: boolean;
   _links: {
-    self: {
-      href: string;
-    };
+    self: Link;
   };
 }
