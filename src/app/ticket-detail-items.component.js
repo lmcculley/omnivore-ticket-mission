@@ -10,26 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var ticket_service_1 = require("./ticket.service");
-var TicketDetailComponent = (function () {
-    function TicketDetailComponent(ticketService) {
+var TicketDetailItemsComponent = (function () {
+    function TicketDetailItemsComponent(ticketService) {
         var _this = this;
         this.ticketService = ticketService;
         this.subscription = ticketService.ticketDetail$.subscribe(function (ticket) {
             _this.ticket = ticket;
         });
     }
-    TicketDetailComponent.prototype.ngOnDestroy = function () {
+    TicketDetailItemsComponent.prototype.ngOnDestroy = function () {
         this.subscription.unsubscribe();
     };
-    return TicketDetailComponent;
+    return TicketDetailItemsComponent;
 }());
-TicketDetailComponent = __decorate([
+TicketDetailItemsComponent = __decorate([
     core_1.Component({
-        selector: 'ticket-detail',
-        templateUrl: './src/views/ticket-detail.html',
+        selector: 'ticket-detail-items',
+        templateUrl: './src/views/ticket-detail-items.html',
         styleUrls: ['./src/styles/ticket-detail.css']
     }),
     __metadata("design:paramtypes", [ticket_service_1.TicketService])
-], TicketDetailComponent);
-exports.TicketDetailComponent = TicketDetailComponent;
-//# sourceMappingURL=ticket-detail.component.js.map
+], TicketDetailItemsComponent);
+exports.TicketDetailItemsComponent = TicketDetailItemsComponent;
+//# sourceMappingURL=ticket-detail-items.component.js.map

@@ -1,0 +1,45 @@
+<table class="table table-condensed" *ngIf="ticket && hasTotals(ticket.totals)">
+    <caption>Ticket Total</caption>
+    <tbody>
+        <tr *ngIf="ticket.totals.items">
+            <td>ITEM TOTAL</td>
+            <td>{{ticket.totals.items | currency:'USD':true}}</td>
+        </tr>
+        <tr *ngIf="ticket.totals.other_charges">
+            <td>OTHER</td>
+            <td>{{ticket.totals.other_charges | currency:'USD':true}}</td>
+        </tr>
+        <tr *ngIf="ticket.totals.discounts">
+            <td>DISCOUNTS</td>
+            <td>-{{ticket.totals.discounts | currency:'USD':true}}</td>
+        </tr>
+        <tr *ngIf="ticket.totals.sub_total">
+            <td>SUBTOTAL</td>
+            <td>{{ticket.totals.sub_total | currency:'USD':true}}</td>
+        </tr>
+        <tr *ngIf="ticket.totals.service_charges">
+            <td>SERVICE</td>
+            <td>{{ticket.totals.service_charges | currency:'USD':true}}</td>
+        </tr>
+        <tr *ngIf="ticket.totals.tax">
+            <td>TAX</td>
+            <td>{{ticket.totals.tax | currency:'USD':true}}</td>
+        </tr>
+        <tr *ngIf="ticket.totals.total">
+            <td>TOTAL</td>
+            <td>{{ticket.totals.total | currency:'USD':true}}</td>
+        </tr>
+        <tr *ngIf="ticket.totals.tips">
+            <td>GRATUITY</td>
+            <td>{{ticket.totals.tips | currency:'USD':true}}</td>
+        </tr>
+        <tr *ngIf="ticket.totals.paid">
+            <td>PAID</td>
+            <td>{{ticket.totals.paid | currency:'USD':true}}</td>
+        </tr>
+        <tr *ngIf="ticket.totals.due">
+            <td>BALANCE DUE</td>
+            <td>{{ticket.totals.due | currency:'USD':true}}</td>
+        </tr>
+    </tbody>
+</table>

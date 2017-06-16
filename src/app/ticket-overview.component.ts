@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Ticket } from './ticket';
-import { Links } from './links';
+import { Ticket } from '../models/ticket';
+import { Links } from '../models/links';
 import { TicketService } from './ticket.service';
 
 @Component({
@@ -12,7 +12,8 @@ import { TicketService } from './ticket.service';
 })
 
 export class TicketOverviewComponent implements OnInit { 
-  isLoading = false;
+  isLoadingTickets = false;
+  isLoadingTicket = false;
   tickets: Ticket[];
   links: Links;
   selectedTicket: Ticket;
@@ -20,12 +21,12 @@ export class TicketOverviewComponent implements OnInit {
   constructor(private ticketService: TicketService) {}
 
   getTickets(url?: string): void {
-    this.isLoading = true;
+    this.isLoadingTickets = true;
     this.tickets = null;
     this.ticketService
         .getTickets(url)
         .then(tickets => {
-          this.isLoading = false;
+          this.isLoadingTickets = false;
           this.links = tickets._links;
           return this.tickets = tickets._embedded.tickets;
         });
@@ -40,6 +41,7 @@ export class TicketOverviewComponent implements OnInit {
 
   clearSelectedTicket(): void {
     this.selectedTicket = null;
+    this.ticketService.setTicketDetail(this.selectedTicket);  
   }
 
   ngOnInit(): void {
@@ -47,6 +49,13 @@ export class TicketOverviewComponent implements OnInit {
   }
 
   onSelect(ticket: Ticket): void {
-    this.selectedTicket = ticket;
+    this.isLoadingTicket = true;
+    this.ticketService
+        .getTickets(ticket._links.self.href)
+        .then(ticket => {
+          this.isLoadingTicket = false;
+          this.selectedTicket = ticket;    
+          this.ticketService.setTicketDetail(this.selectedTicket);      
+        });
   }
 }

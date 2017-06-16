@@ -1,0 +1,12 @@
+<table class="table table-condensed" *ngIf="ticket && ticket._embedded.voided_items.length">
+    <caption>Voided Items</caption>
+    <tbody>
+        <tr *ngFor="let voided of ticket._embedded.voided_items">
+            <td>
+                <span *ngIf="voided.quantity > 1">{{voided.quantity}}</span>
+                {{voided.name}}
+            </td>
+            <td>{{voided.price | currency:'USD':true}}</td>
+        </tr>
+    </tbody>
+</table>

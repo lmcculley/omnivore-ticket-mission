@@ -10,6 +10,10 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var ticket_overview_component_1 = require("./ticket-overview.component");
 var ticket_detail_component_1 = require("./ticket-detail.component");
+var ticket_detail_items_component_1 = require("./ticket-detail-items.component");
+var ticket_detail_services_component_1 = require("./ticket-detail-services.component");
+var ticket_detail_voided_component_1 = require("./ticket-detail-voided.component");
+var ticket_detail_totals_component_1 = require("./ticket-detail-totals.component");
 var ticket_service_1 = require("./ticket.service");
 var AppModule = (function () {
     function AppModule() {
@@ -24,7 +28,11 @@ AppModule = __decorate([
         ],
         declarations: [
             ticket_overview_component_1.TicketOverviewComponent,
-            ticket_detail_component_1.TicketDetailComponent
+            ticket_detail_component_1.TicketDetailComponent,
+            ticket_detail_items_component_1.TicketDetailItemsComponent,
+            ticket_detail_services_component_1.TicketDetailServicesComponent,
+            ticket_detail_voided_component_1.TicketDetailVoidedComponent,
+            ticket_detail_totals_component_1.TicketDetailTotalsComponent
         ],
         providers: [ticket_service_1.TicketService],
         bootstrap: [ticket_overview_component_1.TicketOverviewComponent]

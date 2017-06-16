@@ -13,16 +13,17 @@ var ticket_service_1 = require("./ticket.service");
 var TicketOverviewComponent = (function () {
     function TicketOverviewComponent(ticketService) {
         this.ticketService = ticketService;
-        this.isLoading = false;
+        this.isLoadingTickets = false;
+        this.isLoadingTicket = false;
     }
     TicketOverviewComponent.prototype.getTickets = function (url) {
         var _this = this;
-        this.isLoading = true;
+        this.isLoadingTickets = true;
         this.tickets = null;
         this.ticketService
             .getTickets(url)
             .then(function (tickets) {
-            _this.isLoading = false;
+            _this.isLoadingTickets = false;
             _this.links = tickets._links;
             return _this.tickets = tickets._embedded.tickets;
         });
@@ -35,12 +36,21 @@ var TicketOverviewComponent = (function () {
     };
     TicketOverviewComponent.prototype.clearSelectedTicket = function () {
         this.selectedTicket = null;
+        this.ticketService.setTicketDetail(this.selectedTicket);
     };
     TicketOverviewComponent.prototype.ngOnInit = function () {
         this.getTickets();
     };
     TicketOverviewComponent.prototype.onSelect = function (ticket) {
-        this.selectedTicket = ticket;
+        var _this = this;
+        this.isLoadingTicket = true;
+        this.ticketService
+            .getTickets(ticket._links.self.href)
+            .then(function (ticket) {
+            _this.isLoadingTicket = false;
+            _this.selectedTicket = ticket;
+            _this.ticketService.setTicketDetail(_this.selectedTicket);
+        });
     };
     return TicketOverviewComponent;
 }());

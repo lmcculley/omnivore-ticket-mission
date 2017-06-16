@@ -10,13 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var Subject_1 = require("rxjs/Subject");
 require("rxjs/add/operator/toPromise");
 var TicketService = (function () {
     function TicketService(http) {
         this.http = http;
         this.ticketsUrl = 'https://api.omnivore.io/1.0/locations/ibx4eb7T/tickets?where=eq(open,true)';
         this.headers = new http_1.Headers({ 'Api-Key': 'e55d08bc7ba34a2bb15f51f14698615e' });
+        this.ticketDetail = new Subject_1.Subject();
+        this.ticketDetail$ = this.ticketDetail.asObservable();
     }
+    TicketService.prototype.setTicketDetail = function (ticket) {
+        this.ticketDetail.next(ticket);
+    };
     TicketService.prototype.getTickets = function (url) {
         if (!url)
             url = this.ticketsUrl;

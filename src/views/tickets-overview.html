@@ -10,7 +10,7 @@
     <h2>
         Open Tickets
         <button class="btn btn-default" (click)="refreshTicketList()">
-            <i [class.loading-icon]="isLoading" class="glyphicon glyphicon-refresh"></i>
+            <i [class.loading-icon]="isLoadingTickets" class="glyphicon glyphicon-refresh"></i>
         </button>
     </h2>
 
@@ -32,7 +32,13 @@
                 (click)="onSelect(ticket)"> Ticket #{{ticket.id}}</button>
         </li>
     </ul>
-    <p *ngIf="!tickets && !isLoading">All tickets closed!</p>
+    <p *ngIf="!tickets && !isLoadingTickets">All tickets closed!</p>
 </section>
 
-<ticket-detail [ticket]="selectedTicket"></ticket-detail>
+<div class="progress" *ngIf="isLoadingTicket">
+    <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%">
+        Loading ticket info
+    </div>
+</div>
+
+<ticket-detail></ticket-detail>

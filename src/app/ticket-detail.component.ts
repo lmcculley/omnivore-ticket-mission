@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { Ticket } from './ticket';
+import { Component, OnDestroy} from '@angular/core';
+import { TicketService } from './ticket.service';
+import { Subscription } from 'rxjs/Subscription';
+import { Ticket } from '../models/ticket';
 
 @Component({
     selector: 'ticket-detail',
@@ -7,13 +9,17 @@ import { Ticket } from './ticket';
     styleUrls: ['./src/styles/ticket-detail.css']
 })
 
-export class TicketDetailComponent {
-    @Input() ticket: Ticket;
+export class TicketDetailComponent implements OnDestroy {
+    ticket: Ticket;
+    subscription: Subscription;
 
-    hasTotals(totals: any): boolean {
-        var hasTotal = false;
-        for(var key in totals)
-            if(totals.hasOwnProperty(key) && totals[key] > 0) hasTotal = true;
-        return hasTotal;   
+    constructor(private ticketService: TicketService) {
+        this.subscription = ticketService.ticketDetail$.subscribe(ticket => {
+            this.ticket = ticket;
+        });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

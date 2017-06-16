@@ -1,0 +1,11 @@
+<table class="table table-condensed" *ngIf="ticket && ticket._embedded.service_charges.length">
+    <caption>Services</caption>
+    <tbody>
+        <tr *ngFor="let service of ticket._embedded.service_charges">
+            <td>
+                {{service.name}}
+            </td>
+            <td>{{service.price | currency:'USD':true}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -20,4 +20,9 @@ export class Ticket {
   guest_count: number;
   closed_at: number;
   auto_send: boolean;
+  _links: {
+    self: {
+      href: string;
+    };
+  };
 }
